@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<div class='container'>
+	<div class='row'>
+		<div class='col-sm-12'>
+			{% if request.user.is_authenticated %}
+			<form method='post' action="{% url 'add' %}">
+			{% csrf_token %}
+		      <input class="form-control" type="search" placeholder="Say some thing" aria-label="Say some thing" name='new_post'>
+		      <button class="btn btn-outline-success" type="submit">Post</button>
+		    </form>
+		    {% endif %}
+			{% for post in posts %}
+			<div class="jumbotron">
+				<p class="lead"> {{ post.user.username }}   Say :<br> </p>
+
+			    <h1 class="display-4">{{ post.post }}</h1>
+			  		{{ post.date|timesince }} ago <br>
+			  	{% if request.user.username == post.user.username %}
+			  	<p class="lead">
+			    	<form  method='get' action='{{ post.get_absolute_url }}'>
+			    		
+			    		<button type="submit">edit</button>
+			    	        
+			    	</form>
+			    	<form  method='post' action="{% url 'delete' %}"}>
+			    		{% csrf_token %}
+			    		<input type='hidden' name="post_id" value='{{ post.id }}'>
+			    		<button type="submit">delete</button>
+			    	        
+			    	</form>
+			 	</p>
+
+			  	{% endif %}
+			  
+
+			</div>
+			
+			
+			
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

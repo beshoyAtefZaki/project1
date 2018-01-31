@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+{% if request.user == object.user %}
+<div class='container'>
+	<div class='row'>
+		 <div class ='col-sm-8 col-12'>
+			<form  method='post' action= "{% url 'edit1' %}" >{% csrf_token %}
+				<input class="form-control" type="edit" value="{{ object.post }}" aria-label="edit" name="new_post">
+				<input type='hidden' name="post_id" value='{{ object.id }}'>
+				 <button class="btn btn-outline-success" type="submit">Edit</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% else %}
+<h1> Forbidden </h1>
+{% endif %}
+
+{% endblock %}
