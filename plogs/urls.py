@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^register/$', register_page, name='register'),
     url(r'^login/$', login_page, name='login'),
      url(r'^logout/$', log_out, name='logout'),
-     url(r'^profiles/', include('profiles.urls'))
+     url(r'^profiles/', include('profiles.urls')),
+     url(r'^api-auth/', include('rest_framework.urls')),
+     url(r'^api/', include('api.urls')),
+      url(r'^window/', include('widowsstaff.urls')),
+
 
 ]
